@@ -38,7 +38,7 @@ import com.example.simrs.ui.theme.SIMRSTheme
 
 @Composable
 fun LoginScreen(
-    moveToHome: () -> Unit,
+    navigateToHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -56,7 +56,7 @@ fun LoginScreen(
     val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
 
     Box(
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         Image(
             painter = painterResource(id = R.drawable.login_background),
@@ -73,7 +73,7 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .align(Alignment.BottomCenter),
-            elevation = 8.dp
+            elevation = 4.dp
         ) {
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -119,7 +119,7 @@ fun LoginScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(56.dp))
-                LoginButton()
+                LoginButton(navigateToHome = navigateToHome)
                 Spacer(modifier = Modifier.height(8.dp))
                 TextButton(
                     onClick = { /*TODO*/ },
@@ -134,14 +134,13 @@ fun LoginScreen(
 
 @Composable
 fun LoginButton(
+    navigateToHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = Brush.horizontalGradient(0f to Purple, 1000f to Pink)
 
     Button(
-        onClick = {
-            // TODO: ADD LATER
-        },
+        onClick = navigateToHome,
         modifier = Modifier
             .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
