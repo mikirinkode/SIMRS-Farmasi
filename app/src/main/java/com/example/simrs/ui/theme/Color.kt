@@ -9,7 +9,10 @@ import androidx.compose.ui.graphics.Color
 //val Teal200 = Color(0xFF03DAC5)
 
 val Purple = Color(0xFF9267D4)
+val Middle = Color(0xFFBE93E0)
 val Pink = Color(0xFFFF92D0)
 
-val Primary = Brush.verticalGradient(0f to Purple, 1000f to Pink)
-val Blue = Color(0xFFA8B4F8)
+//val Blue = Color(0xFFA8B4F8)
+val Blue = Color(0xFF5282FB)
+
+val PrimaryGradient = Brush.horizontalGradient(0f to Purple, 500f to Middle, 1000f to Pink)

@@ -32,9 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.simrs.R
-import com.example.simrs.ui.theme.Pink
-import com.example.simrs.ui.theme.Purple
-import com.example.simrs.ui.theme.SIMRSTheme
+import com.example.simrs.ui.theme.*
 
 @Composable
 fun LoginScreen(
@@ -137,7 +135,6 @@ fun LoginButton(
     navigateToHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = Brush.horizontalGradient(0f to Purple, 1000f to Pink)
 
     Button(
         onClick = navigateToHome,
@@ -155,7 +152,7 @@ fun LoginButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    brush = backgroundColor,
+                    brush = PrimaryGradient,
                     shape = RoundedCornerShape(20.dp)
                 )
                 .align(Alignment.CenterVertically)
