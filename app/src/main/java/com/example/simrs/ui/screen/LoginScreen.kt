@@ -1,8 +1,6 @@
 package com.example.simrs.ui.screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -15,6 +13,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Brush
@@ -139,34 +138,34 @@ fun LoginButton(
 ) {
     val backgroundColor = Brush.horizontalGradient(0f to Purple, 1000f to Pink)
 
-    Text(
-        text = "MASUK",
+    Button(
+        onClick = {
+            // TODO: ADD LATER
+        },
         modifier = Modifier
-            .fillMaxWidth()
-            .background(brush = backgroundColor, shape = RoundedCornerShape(20.dp))
-            .padding(18.dp)
-            .clickable {
-                //TODO
-            },
-        textAlign = TextAlign.Center,
-        fontSize = 16.sp
-    )
-//    Button(
-//        onClick = {
-//            // TODO: ADD LATER
-//        },
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .background(brush = backgroundColor, shape = RoundedCornerShape(20.dp))
-//            .shadow(0.dp),
-//        colors = ButtonDefaults.buttonColors(
-//            backgroundColor = Color.Transparent,
-//        ),
-//        contentPadding = PaddingValues(0.dp),
-//        elevation = ButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp)
-//    ) {
-//        Text(text = "MASUK")
-//    }
+            .fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent,
+        ),
+        contentPadding = PaddingValues(0.dp),
+        elevation = ButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp),
+        shape = RoundedCornerShape(20.dp),
+    ) {
+        Text(
+            text = "MASUK",
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = backgroundColor,
+                    shape = RoundedCornerShape(20.dp)
+                )
+                .align(Alignment.CenterVertically)
+                .height(ButtonDefaults.MinHeight)
+                .padding(7.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 16.sp
+        )
+    }
 }
 
 @Composable
