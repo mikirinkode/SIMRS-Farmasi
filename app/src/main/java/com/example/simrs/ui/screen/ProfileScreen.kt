@@ -110,7 +110,6 @@ fun ProfileTextField(
         mutableStateOf("")
     }
     Column(
-
     ) {
         Text(text = title)
         OutlinedTextField(

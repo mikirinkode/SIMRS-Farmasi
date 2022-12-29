@@ -8,6 +8,11 @@ sealed class Screen(val route: String){
         fun createRoute(feature: String) = "home/$feature"
     }
 
+
+    object Form: Screen("home/{feature}/form") {
+        fun createRoute(feature: String) = "home/$feature/form"
+    }
+
     object Menu: Screen("home/menu")
     object ManageIndustry: Screen("home/menu/industry")
 }

@@ -22,6 +22,9 @@ import androidx.navigation.navArgument
 import com.example.simrs.ui.navigation.NavigationItem
 import com.example.simrs.ui.navigation.Screen
 import com.example.simrs.ui.screen.*
+import com.example.simrs.ui.screen.industry.Form
+import com.example.simrs.ui.screen.industry.IndustryForm
+import com.example.simrs.ui.screen.industry.ManageIndustryScreen
 
 @Composable
 fun PharmacyApp(
@@ -78,23 +81,34 @@ fun PharmacyApp(
             ) {
                 val feature = it.arguments?.getString("feature") ?: ""
                 FeatureScreen(
-                    featureName = feature
-                )
-            }
-
-            composable(Screen.Menu.route) {
-                MenuScreen(
-                    navigateToFeatureScreen = {
-                        navController.navigate(Screen.ManageIndustry.route)
+                    featureName = feature,
+                    navigateToFormScreen = {
+                        navController.navigate(Screen.Form.createRoute(feature))
                     },
                     navigateBack = {
-
+                        navController.navigateUp()
                     }
                 )
             }
 
-            composable(Screen.ManageIndustry.route) {
-                ManageIndustryScreen()
+            // route: /home/{feature}/form
+            composable(
+                route = Screen.Form.route,
+                arguments = listOf(
+                    navArgument("feature"){type = NavType.StringType}
+                )
+            ) {
+                val feature = it.arguments?.getString("feature") ?: ""
+                when (feature){
+                    Feature.INDUSTRI_FARMASI -> {
+                        Form(
+                            feature,
+                            navigateBack = {
+                                navController.navigateUp()
+                            }
+                        )
+                    }
+                }
             }
         }
     }

@@ -17,3 +17,4 @@ val Blue = Color(0xFF5282FB)
 
 val PrimaryGradient = Brush.horizontalGradient(0f to Purple, 1000f to Pink)
 val SecondaryGradient = Brush.horizontalGradient(0f to Middle, 1000f to Pink)
+val BlueGradient = Brush.horizontalGradient(0f to Color(0xFFA8B4F8), 1000f to Color(0xFF89C4FF))
