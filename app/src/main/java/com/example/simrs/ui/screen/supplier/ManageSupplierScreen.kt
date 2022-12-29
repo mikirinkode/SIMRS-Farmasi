@@ -105,7 +105,9 @@ fun ManageSupplierScreen(
             }
 
             if (dataList.size > 0) {
-                LazyColumn() {
+                LazyColumn(
+                    contentPadding = PaddingValues(bottom = 16.dp)
+                ) {
                     items(dataList) { data ->
                         SupplierCard(
                             code = data.code,

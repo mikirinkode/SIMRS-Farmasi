@@ -1,6 +1,5 @@
-package com.example.simrs.ui.screen.industry
+package com.example.simrs.ui.screen.stock
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,7 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,26 +17,24 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.simrs.R
 import com.example.simrs.data.model.DummyData
 import com.example.simrs.ui.components.DeleteConfirmationMessage
 import com.example.simrs.ui.screen.SearchBar
-import com.example.simrs.ui.theme.*
+import com.example.simrs.ui.screen.industry.DetailInfoSection
+import com.example.simrs.ui.theme.Pink
+import com.example.simrs.ui.theme.SecondaryGradient
+
 
 @Composable
-fun ManageIndustryScreen(
+fun ManageMedicineScreen(
     navigateToFormScreen: () -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val industryList = ArrayList(DummyData.getDummyIndustries())
-//    val industryList = remember {
-//        mutableStateListOf<List<Industry>>(DummyData.getDummyIndustries())
-//    }
-
+    val dataList = ArrayList(DummyData.getDummyMedicines())
     var selectedIndex by remember {
         mutableStateOf(0)
     }
@@ -49,6 +47,7 @@ fun ManageIndustryScreen(
     var query by remember {
         mutableStateOf("")
     }
+
 
     Box(
         modifier = modifier.background(Color(0xfff5f5f5))
@@ -76,7 +75,9 @@ fun ManageIndustryScreen(
                     painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = "Back Button",
                     tint = Color.White,
-                    modifier = Modifier.size(24.dp).clickable { navigateBack() },
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable { navigateBack() },
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 SearchBar(query = query, onValueChange = { newValue -> query = newValue })
@@ -87,7 +88,7 @@ fun ManageIndustryScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Industri Farmasi", fontSize = 18.sp)
+                Text(text = "Data Obat", fontSize = 18.sp)
                 Button(
                     onClick = navigateToFormScreen,
                     colors = ButtonDefaults.buttonColors(
@@ -100,63 +101,33 @@ fun ManageIndustryScreen(
                 }
             }
 
-            if (industryList.size > 0) {
+            if (dataList.size > 0) {
                 LazyColumn(
                     contentPadding = PaddingValues(bottom = 16.dp)
                 ) {
-                    items(industryList) { industry ->
-                        IndustryCard(
-                            code = industry.code,
-                            name = industry.name,
+                    items(dataList) { data ->
+                        StockCard(
+                            name = data.name,
+                            availableStock = 3500.toString(),
                             openDetailCard = {
-                                selectedIndex = industryList.indexOf(industry)
+                                selectedIndex = dataList.indexOf(data)
                                 showDetail = true
-                               })
+                            })
                     }
-
-//                    item {
-//                    if (industryList.size > 0){
-//                        for (industry in industryList){
-//                            IndustryCard(
-//                                code = industry[index].code,
-//                                name = industry[index].name,
-//                                openDetailCard = {
-//                                    selectedIndex = index
-//                                    showDetail = true
-//                                    Log.e("ManageIndustry", "OpenDetailButton Clicked")
-//                                })
-//                        }
-//                    }
-//                    }
-
-
-//                    itemsIndexed(industryList) { index, industry ->
-//                        IndustryCard(
-//                            code = industry[index].code,
-//                            name = industry[index].name,
-//                            openDetailCard = {
-//                                selectedIndex = index
-//                                showDetail = true
-//                                Log.e("ManageIndustry", "OpenDetailButton Clicked")
-//                            })
-//                    }
                 }
             }
         }
 
         if (showDetail) {
-            industryList[selectedIndex].let { industry ->
-                DetailCard(
-                    code = industry.code,
-                    name = industry.name,
-                    address = industry.address,
-                    city = industry.city,
-                    phoneNumber = industry.phoneNumber,
+            dataList[selectedIndex].let { data ->
+                StockDetailCard(
+                    name = data.name,
+                    category = data.category,
+                    unit = data.unit,
+                    minimalStock = data.minimumStock.toString(),
+                    availaibleStock = (200).toString(),
                     closeDetailCard = {
                         showDetail = false
-                    },
-                    onEdit = {
-
                     },
                     onDelete = {
                         showMessage = true
@@ -170,7 +141,7 @@ fun ManageIndustryScreen(
         if (showMessage) {
             DeleteConfirmationMessage(
                 onPositiveClick = {
-                    industryList.removeAt(selectedIndex)
+                    dataList.removeAt(selectedIndex)
                 },
                 onNegativeClick = {
                     showMessage = false
@@ -180,11 +151,10 @@ fun ManageIndustryScreen(
     }
 }
 
-
 @Composable
-fun IndustryCard(
-    code: Int,
+fun StockCard(
     name: String,
+    availableStock: String,
     openDetailCard: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -241,8 +211,8 @@ fun IndustryCard(
                         verticalAlignment = Alignment.Top
                     ) {
                         Column() {
-                            Text(text = "Kode I.F.", color = Pink, fontSize = 15.sp)
-                            Text(text = code.toString(), fontSize = 18.sp)
+                            Text(text = "Nama Obat", color = Pink, fontSize = 15.sp)
+                            Text(text = name, fontSize = 18.sp)
                         }
                         TextButton(onClick = openDetailCard) {
                             Text(text = "Lihat Detail")
@@ -250,8 +220,8 @@ fun IndustryCard(
                     }
                     Spacer(modifier = Modifier.height(30.dp))
                     Column() {
-                        Text(text = "Industri Farmasi", color = Pink, fontSize = 15.sp)
-                        Text(text = name, fontSize = 18.sp)
+                        Text(text = "StockTersedia", color = Pink, fontSize = 15.sp)
+                        Text(text = availableStock, fontSize = 18.sp)
                     }
                 }
             }
@@ -260,14 +230,13 @@ fun IndustryCard(
 }
 
 @Composable
-fun DetailCard(
-    code: Int,
+fun StockDetailCard(
     name: String,
-    address: String,
-    city: String,
-    phoneNumber: String,
+    category: String,
+    unit: String,
+    minimalStock: String,
+    availaibleStock: String,
     closeDetailCard: () -> Unit,
-    onEdit: () -> Unit,
     onDelete: () -> Unit,
     onPrint: () -> Unit,
     modifier: Modifier = Modifier
@@ -296,7 +265,7 @@ fun DetailCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Detail Industri")
+                    Text("Detail Stock Obat")
                     IconButton(onClick = closeDetailCard) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close),
@@ -307,27 +276,18 @@ fun DetailCard(
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
-                DetailInfoSection(title = "Kode Industri Farmasi", value = code.toString())
-                DetailInfoSection(title = "Nama Industri", value = name)
-                DetailInfoSection(title = "Alamat", value = address)
-                DetailInfoSection(title = "Asal Kota", value = city)
-                DetailInfoSection(title = "Nomor Telepon", value = phoneNumber)
+                DetailInfoSection(title = "Nama Obat", value = name)
+                DetailInfoSection(title = "Kategori", value = category)
+                DetailInfoSection(title = "Satuan", value = unit)
+                DetailInfoSection(title = "Stok Minimal", value = minimalStock)
+                DetailInfoSection(title = "Stok Tersedia", value = availaibleStock)
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Button(
-                        onClick = onEdit,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color(0xFF49BEFF),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        Text(text = "Edit Data")
-                    }
+
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = onDelete,
@@ -353,29 +313,5 @@ fun DetailCard(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun DetailInfoSection(
-    title: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = Modifier
-    ) {
-        Text(text = title, fontSize = 15.sp, color = Pink)
-        Text(text = value, fontSize = 18.sp)
-        Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-
-@Preview(showSystemUi = true)
-@Composable
-fun ManageIndustryScreenPreview() {
-    SIMRSTheme {
-        ManageIndustryScreen({}, {})
     }
 }

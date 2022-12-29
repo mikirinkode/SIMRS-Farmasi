@@ -101,7 +101,9 @@ fun ManageMedicineScreen(
             }
 
             if (dataList.size > 0) {
-                LazyColumn() {
+                LazyColumn(
+                    contentPadding = PaddingValues(bottom = 16.dp)
+                ) {
                     items(dataList) { data ->
                         MedicineCard(
                             name = data.name,
