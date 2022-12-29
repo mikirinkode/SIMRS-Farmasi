@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.simrs.R
 import com.example.simrs.data.model.DummyData
 import com.example.simrs.ui.screen.industry.ManageIndustryScreen
+import com.example.simrs.ui.screen.medicine.ManageMedicineScreen
 import com.example.simrs.ui.screen.supplier.ManageSupplierScreen
 import com.example.simrs.ui.theme.SIMRSTheme
 
@@ -76,6 +77,10 @@ fun FeatureScreen(
             )
         }
         Feature.OBAT -> {
+            ManageMedicineScreen(
+            navigateToFormScreen = navigateToFormScreen,
+            navigateBack = navigateBack
+        )
         }
         Feature.STOK_OBAT -> {
         }
