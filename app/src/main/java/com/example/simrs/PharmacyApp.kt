@@ -13,15 +13,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.simrs.ui.navigation.NavigationItem
 import com.example.simrs.ui.navigation.Screen
-import com.example.simrs.ui.screen.HomeScreen
-import com.example.simrs.ui.screen.LoginScreen
-import com.example.simrs.ui.screen.ProfileScreen
+import com.example.simrs.ui.screen.*
 
 @Composable
 fun PharmacyApp(
@@ -53,11 +53,48 @@ fun PharmacyApp(
             }
 
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    navigateToMenu = {
+                        navController.navigate(
+                            Screen.Menu.route
+                        )
+                    },
+                    navigateToFeature = { feature ->
+                        navController.navigate(Screen.Feature.createRoute(feature))
+                    }
+                )
             }
 
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+
+            // route: /home/{feature}
+            composable(
+                route = Screen.Feature.route,
+                arguments = listOf(
+                    navArgument("feature"){type = NavType.StringType}
+                )
+            ) {
+                val feature = it.arguments?.getString("feature") ?: ""
+                FeatureScreen(
+                    featureName = feature
+                )
+            }
+
+            composable(Screen.Menu.route) {
+                MenuScreen(
+                    navigateToFeatureScreen = {
+                        navController.navigate(Screen.ManageIndustry.route)
+                    },
+                    navigateBack = {
+
+                    }
+                )
+            }
+
+            composable(Screen.ManageIndustry.route) {
+                ManageIndustryScreen()
             }
         }
     }
