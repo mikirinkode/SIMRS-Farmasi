@@ -4,13 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -20,24 +18,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.simrs.R
 import com.example.simrs.ui.components.GradientButton
-import com.example.simrs.ui.components.SimpleTextField
 import com.example.simrs.ui.screen.Feature
+import com.example.simrs.ui.screen.supplier.SupplierForm
 import com.example.simrs.ui.theme.BlueGradient
 import com.example.simrs.ui.theme.PrimaryGradient
 import com.example.simrs.ui.theme.SIMRSTheme
 import com.example.simrs.ui.theme.SecondaryGradient
 
 @Composable
-fun Form(
+fun FormScreen(
     feature: String,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    val focusManager = LocalFocusManager.current
-    val keyboardNext = KeyboardOptions(
-        imeAction = ImeAction.Next
-    )
 
     Box(
         modifier = modifier
@@ -102,8 +95,8 @@ fun Form(
 
                 LazyColumn(
                     modifier = Modifier
-                        .padding(24.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    contentPadding = PaddingValues(24.dp)
                 ) {
                     item {
                         when (feature) {
@@ -111,7 +104,7 @@ fun Form(
                                 IndustryForm()
                             }
                             Feature.SUPPLIER -> {
-
+                                SupplierForm()
                             }
                             Feature.OBAT -> {
                             }
@@ -167,6 +160,6 @@ fun Form(
 @Composable
 fun FormPreview() {
     SIMRSTheme {
-        Form("", {})
+        FormScreen("", {})
     }
 }

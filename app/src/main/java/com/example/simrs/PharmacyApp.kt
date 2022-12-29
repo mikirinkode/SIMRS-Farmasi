@@ -22,9 +22,7 @@ import androidx.navigation.navArgument
 import com.example.simrs.ui.navigation.NavigationItem
 import com.example.simrs.ui.navigation.Screen
 import com.example.simrs.ui.screen.*
-import com.example.simrs.ui.screen.industry.Form
-import com.example.simrs.ui.screen.industry.IndustryForm
-import com.example.simrs.ui.screen.industry.ManageIndustryScreen
+import com.example.simrs.ui.screen.industry.FormScreen
 
 @Composable
 fun PharmacyApp(
@@ -99,16 +97,12 @@ fun PharmacyApp(
                 )
             ) {
                 val feature = it.arguments?.getString("feature") ?: ""
-                when (feature){
-                    Feature.INDUSTRI_FARMASI -> {
-                        Form(
-                            feature,
-                            navigateBack = {
-                                navController.navigateUp()
-                            }
-                        )
+                FormScreen(
+                    feature,
+                    navigateBack = {
+                        navController.navigateUp()
                     }
-                }
+                )
             }
         }
     }
