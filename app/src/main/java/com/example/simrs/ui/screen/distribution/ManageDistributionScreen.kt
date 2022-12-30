@@ -1,4 +1,4 @@
-package com.example.simrs.ui.screen.stock
+package com.example.simrs.ui.screen.distribution
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.simrs.R
@@ -25,16 +26,17 @@ import com.example.simrs.ui.components.DeleteConfirmationMessage
 import com.example.simrs.ui.screen.SearchBar
 import com.example.simrs.ui.screen.industry.DetailInfoSection
 import com.example.simrs.ui.theme.Pink
+import com.example.simrs.ui.theme.SIMRSTheme
 import com.example.simrs.ui.theme.SecondaryGradient
 
 
 @Composable
-fun ManageStockScreen(
+fun ManageDistributionScreen(
     navigateToFormScreen: () -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val dataList = ArrayList(DummyData.getDummyMedicines())
+    val dataList = ArrayList(DummyData.getDummyMedicineDistribution())
     var selectedIndex by remember {
         mutableStateOf(0)
     }
@@ -88,7 +90,7 @@ fun ManageStockScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Data Obat", fontSize = 18.sp)
+                Text(text = "Distribusi Obat", fontSize = 18.sp)
                 Button(
                     onClick = navigateToFormScreen,
                     colors = ButtonDefaults.buttonColors(
@@ -106,9 +108,9 @@ fun ManageStockScreen(
                     contentPadding = PaddingValues(bottom = 16.dp)
                 ) {
                     items(dataList) { data ->
-                        StockCard(
-                            name = data.name,
-                            availableStock = 3500.toString(),
+                        DistributionCard(
+                            transactionNumber = "No " + data.distributionNumber.toString() ,
+                            destinationUnit = data.destinationUnit,
                             openDetailCard = {
                                 selectedIndex = dataList.indexOf(data)
                                 showDetail = true
@@ -120,14 +122,17 @@ fun ManageStockScreen(
 
         if (showDetail) {
             dataList[selectedIndex].let { data ->
-                StockDetailCard(
-                    name = data.name,
-                    category = data.category,
-                    unit = data.unit,
-                    minimalStock = data.minimumStock.toString(),
-                    availaibleStock = (200).toString(),
+                DistributionDetailCard(
+                    transactionNumber = data.distributionNumber.toString(),
+                    date = data.date,
+                    officer = data.officer,
+                    destinationUnit = data.destinationUnit,
+                    originUnit = data.originUnit,
                     closeDetailCard = {
                         showDetail = false
+                    },
+                    onEdit = {
+
                     },
                     onDelete = {
                         showMessage = true
@@ -152,9 +157,9 @@ fun ManageStockScreen(
 }
 
 @Composable
-fun StockCard(
-    name: String,
-    availableStock: String,
+fun DistributionCard(
+    transactionNumber: String,
+    destinationUnit: String,
     openDetailCard: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -179,7 +184,7 @@ fun StockCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(text = name, fontSize = 18.sp)
+                Text(text = transactionNumber, fontSize = 18.sp)
                 IconButton(
                     onClick = { isExpanded = !isExpanded },
                     modifier = Modifier.padding(0.dp)
@@ -211,8 +216,8 @@ fun StockCard(
                         verticalAlignment = Alignment.Top
                     ) {
                         Column() {
-                            Text(text = "Nama Obat", color = Pink, fontSize = 15.sp)
-                            Text(text = name, fontSize = 18.sp)
+                            Text(text = "Nomor Transaksi", color = Pink, fontSize = 15.sp)
+                            Text(text = transactionNumber, fontSize = 18.sp)
                         }
                         TextButton(onClick = openDetailCard) {
                             Text(text = "Lihat Detail")
@@ -220,8 +225,8 @@ fun StockCard(
                     }
                     Spacer(modifier = Modifier.height(30.dp))
                     Column() {
-                        Text(text = "StockTersedia", color = Pink, fontSize = 15.sp)
-                        Text(text = availableStock, fontSize = 18.sp)
+                        Text(text = "Unit Tujuan", color = Pink, fontSize = 15.sp)
+                        Text(text = destinationUnit, fontSize = 18.sp)
                     }
                 }
             }
@@ -230,13 +235,14 @@ fun StockCard(
 }
 
 @Composable
-fun StockDetailCard(
-    name: String,
-    category: String,
-    unit: String,
-    minimalStock: String,
-    availaibleStock: String,
+fun DistributionDetailCard(
+    transactionNumber: String,
+    date: String,
+    officer: String,
+    destinationUnit: String,
+    originUnit: String,
     closeDetailCard: () -> Unit,
+    onEdit: () -> Unit,
     onDelete: () -> Unit,
     onPrint: () -> Unit,
     modifier: Modifier = Modifier
@@ -265,7 +271,7 @@ fun StockDetailCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Detail Stock Obat")
+                    Text("Detail Obat")
                     IconButton(onClick = closeDetailCard) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close),
@@ -276,18 +282,27 @@ fun StockDetailCard(
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
-                DetailInfoSection(title = "Nama Obat", value = name)
-                DetailInfoSection(title = "Kategori", value = category)
-                DetailInfoSection(title = "Satuan", value = unit)
-                DetailInfoSection(title = "Stok Minimal", value = minimalStock)
-                DetailInfoSection(title = "Stok Tersedia", value = availaibleStock)
+                DetailInfoSection(title = "Nomor Transaksi", value = transactionNumber)
+                DetailInfoSection(title = "Tanggal", value = date)
+                DetailInfoSection(title = "Petugas", value = officer)
+                DetailInfoSection(title = "Unit Tujuan", value = destinationUnit)
+                DetailInfoSection(title = "Unit Asal", value = originUnit)
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-
+                    Button(
+                        onClick = onEdit,
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color(0xFF49BEFF),
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Text(text = "Edit Data")
+                    }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = onDelete,
@@ -313,5 +328,13 @@ fun StockDetailCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DistributionPreview() {
+    SIMRSTheme() {
+        ManageDistributionScreen(navigateToFormScreen = { /*TODO*/ }, navigateBack = { /*TODO*/ })
     }
 }

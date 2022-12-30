@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.simrs.R
 import com.example.simrs.ui.components.GradientButton
 import com.example.simrs.ui.screen.Feature
+import com.example.simrs.ui.screen.distribution.DistributionForm
 import com.example.simrs.ui.screen.medicine.MedicineForm
 import com.example.simrs.ui.screen.supplier.SupplierForm
 import com.example.simrs.ui.theme.BlueGradient
@@ -112,10 +113,14 @@ fun FormScreen(
                             }
                             Feature.STOK_OBAT -> {
                             }
+
                             Feature.PENERIMAAN_OBAT -> {
                             }
+
                             Feature.DISTRIBUSI_OBAT -> {
+                                DistributionForm()
                             }
+
                             Feature.RESEP_OBAT -> {
                             }
                             Feature.PEMESANAN_OBAT -> {

@@ -159,7 +159,13 @@ object DummyData {
 
     fun getDummyMedicineDistribution(): List<MedicineDistribution> = listOf(
         MedicineDistribution(
-            1, "29 - 5 - 2020", "Faisal", listOf(DistributionItem(101, 1)), "Apotek", "Gudang"
+            1001, "27 - 5 - 2020", "Faisal", listOf(DistributionItem(101, 1)), "Apotek", "Gudang"
+        ),
+        MedicineDistribution(
+            1002, "28 - 5 - 2020", "Faisal", listOf(DistributionItem(101, 1)), "Apotek", "Gudang"
+        ),
+        MedicineDistribution(
+            1004, "29 - 5 - 2020", "Faisal", listOf(DistributionItem(101, 1)), "Apotek", "Gudang"
         ),
     )
 
