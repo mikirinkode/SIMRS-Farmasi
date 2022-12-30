@@ -16,6 +16,7 @@ import com.example.simrs.ui.screen.distribution.ManageDistributionScreen
 import com.example.simrs.ui.screen.industry.ManageIndustryScreen
 import com.example.simrs.ui.screen.medicalprescription.ManageMedicalPrescriptionScreen
 import com.example.simrs.ui.screen.medicine.ManageMedicineScreen
+import com.example.simrs.ui.screen.sales.ManageDrugSalesScreen
 import com.example.simrs.ui.screen.stock.ManageStockScreen
 import com.example.simrs.ui.screen.supplier.ManageSupplierScreen
 import com.example.simrs.ui.theme.SIMRSTheme
@@ -108,7 +109,10 @@ fun FeatureScreen(
         Feature.PEMESANAN_OBAT -> {
         }
         Feature.PENJUALAN_OBAT -> {
-
+            ManageDrugSalesScreen(
+                navigateToFormScreen = navigateToFormScreen,
+                navigateBack = navigateBack
+            )
         }
         Feature.LAPORAN_FARMASI -> {
         }

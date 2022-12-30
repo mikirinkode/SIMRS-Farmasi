@@ -179,7 +179,14 @@ object DummyData {
                 SalesItem(101, 1, "1x1 Sehari"),
                 SalesItem(202, 1, "2x2 Sehari"),
             ),
-            2, 30000f
-        )
+            2, 30000f, "Ilham", "Jakarta"
+        ),
+        SalesTransaction(
+            1102, "22 - 2 - 2021", listOf(
+                SalesItem(101, 1, "1x1 Sehari"),
+                SalesItem(202, 1, "2x2 Sehari"),
+            ),
+            2, 30000f, "Abdul", "Jakarta"
+        ),
     )
 }

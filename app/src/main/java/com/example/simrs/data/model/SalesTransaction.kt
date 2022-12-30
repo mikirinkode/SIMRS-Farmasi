@@ -6,6 +6,8 @@ data class SalesTransaction(
     val salesItems: List<SalesItem>,
     val amountSalesItems: Int,
     val total: Float,
+    val patientName: String,    //Temporary
+    val patientAddress: String,  //Temporary
 )
 data class SalesItem(
     val medicineId: Int,
