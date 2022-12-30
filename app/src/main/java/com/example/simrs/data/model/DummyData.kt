@@ -131,18 +131,22 @@ object DummyData {
 
     fun getDummyMedicalPrescription(): List<MedicalPrescription> = listOf(
         MedicalPrescription(
-            1,
+            1048,
             1,
             1,
             listOf(MedicineItem(101, 1, "1 x 1 sehari"), MedicineItem(202, 2, "2 x 2 sehari")),
-            3
+            3,
+            "Abdul",
+            "Dr. M Ashari"
         ),
         MedicalPrescription(
-            2,
+            2401,
             2,
             2,
             listOf(MedicineItem(303, 3, "3 x 3 sehari"), MedicineItem(202, 2, "2 x 2 sehari")),
-            5
+            5,
+            "Majid",
+            "Dr. M Ashari"
         ),
     )
 

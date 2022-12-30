@@ -6,6 +6,8 @@ data class MedicalPrescription(
     val doctorId: Int,
     val medicineList: List<MedicineItem>,
     val totalItems: Int,
+    val patientName: String,
+    val doctorName: String,
 )
 
 data class MedicineItem(

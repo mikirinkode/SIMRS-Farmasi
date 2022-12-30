@@ -20,6 +20,7 @@ import com.example.simrs.ui.theme.SIMRSTheme
 
 @Composable
 fun MenuScreen(
+    navigateToFeatureScreen: () -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +60,8 @@ fun MenuScreen(
         }
         items(menus) { menu ->
             TextButton(
-                onClick = {}, modifier = Modifier
+                onClick = navigateToFeatureScreen,
+                modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp)
             ) {
                 Text(
@@ -78,6 +80,6 @@ fun MenuScreen(
 @Composable
 fun MenuScreenPreview() {
     SIMRSTheme {
-        MenuScreen({})
+        MenuScreen({}, {})
     }
 }

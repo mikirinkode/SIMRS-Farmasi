@@ -14,6 +14,7 @@ import com.example.simrs.R
 import com.example.simrs.data.model.DummyData
 import com.example.simrs.ui.screen.distribution.ManageDistributionScreen
 import com.example.simrs.ui.screen.industry.ManageIndustryScreen
+import com.example.simrs.ui.screen.medicalprescription.ManageMedicalPrescriptionScreen
 import com.example.simrs.ui.screen.medicine.ManageMedicineScreen
 import com.example.simrs.ui.screen.stock.ManageStockScreen
 import com.example.simrs.ui.screen.supplier.ManageSupplierScreen
@@ -99,6 +100,10 @@ fun FeatureScreen(
             )
         }
         Feature.RESEP_OBAT -> {
+            ManageMedicalPrescriptionScreen(
+                navigateToFormScreen = navigateToFormScreen,
+                navigateBack = navigateBack
+            )
         }
         Feature.PEMESANAN_OBAT -> {
         }

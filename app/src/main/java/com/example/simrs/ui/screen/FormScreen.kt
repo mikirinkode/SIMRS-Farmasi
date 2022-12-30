@@ -20,6 +20,7 @@ import com.example.simrs.R
 import com.example.simrs.ui.components.GradientButton
 import com.example.simrs.ui.screen.Feature
 import com.example.simrs.ui.screen.distribution.DistributionForm
+import com.example.simrs.ui.screen.medicalprescription.MedicalPrescriptionForm
 import com.example.simrs.ui.screen.medicine.MedicineForm
 import com.example.simrs.ui.screen.supplier.SupplierForm
 import com.example.simrs.ui.theme.BlueGradient
@@ -122,6 +123,7 @@ fun FormScreen(
                             }
 
                             Feature.RESEP_OBAT -> {
+                                MedicalPrescriptionForm()
                             }
                             Feature.PEMESANAN_OBAT -> {
                             }

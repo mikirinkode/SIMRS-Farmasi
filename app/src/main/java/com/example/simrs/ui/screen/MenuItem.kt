@@ -14,12 +14,12 @@ val menus = listOf(
     MenuItem("Kelola Supplier", Feature.SUPPLIER,R.drawable.home),
     MenuItem("Data Obat", Feature.OBAT,R.drawable.home),
     MenuItem("Stok Obat", Feature.STOK_OBAT,R.drawable.home),
-    MenuItem("Penerimaan Obat", Feature.PENERIMAAN_OBAT,R.drawable.home),
+//    MenuItem("Penerimaan Obat", Feature.PENERIMAAN_OBAT,R.drawable.home),
     MenuItem("Distribusi Obat", Feature.DISTRIBUSI_OBAT,R.drawable.home),
     MenuItem("Resep Obat", Feature.RESEP_OBAT,R.drawable.home),
     MenuItem("Pemesanan Obat", Feature.PEMESANAN_OBAT,R.drawable.home),
     MenuItem("Penjualan Obat", Feature.PENJUALAN_OBAT,R.drawable.home),
-    MenuItem("Laporan Farmasi", Feature.LAPORAN_FARMASI,R.drawable.home),
+//    MenuItem("Laporan Farmasi", Feature.LAPORAN_FARMASI,R.drawable.home),
 )
 
 object Feature{
