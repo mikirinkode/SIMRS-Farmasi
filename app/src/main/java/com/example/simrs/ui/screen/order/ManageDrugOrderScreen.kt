@@ -1,4 +1,5 @@
-package com.example.simrs.ui.screen.medicalprescription
+package com.example.simrs.ui.screen.order
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,12 +32,12 @@ import com.example.simrs.ui.theme.SecondaryGradient
 
 
 @Composable
-fun ManageMedicalPrescriptionScreen(
+fun ManageDrugOrderScreen(
     navigateToFormScreen: () -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val dataList = ArrayList(DummyData.getDummyMedicalPrescription())
+    val dataList = ArrayList(DummyData.getDummyMedicineOrder())
     var selectedIndex by remember {
         mutableStateOf(0)
     }
@@ -90,7 +91,7 @@ fun ManageMedicalPrescriptionScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Resep Obat", fontSize = 18.sp)
+                Text(text = "Pemesanan Obat", fontSize = 18.sp)
                 Button(
                     onClick = navigateToFormScreen,
                     colors = ButtonDefaults.buttonColors(
@@ -108,9 +109,9 @@ fun ManageMedicalPrescriptionScreen(
                     contentPadding = PaddingValues(bottom = 16.dp)
                 ) {
                     items(dataList) { data ->
-                        MedicalPrescriptionCard(
-                            patientId = "No " + data.patientId.toString() ,
-                            patientName = data.patientName,
+                        DrugOrderCard(
+                            supplierCode = data.supplierId.toString(),
+                            supplierName = data.supplierName,
                             openDetailCard = {
                                 selectedIndex = dataList.indexOf(data)
                                 showDetail = true
@@ -122,12 +123,14 @@ fun ManageMedicalPrescriptionScreen(
 
         if (showDetail) {
             dataList[selectedIndex].let { data ->
-                MedicalPrescriptionDetailCard(
-                    patientNumber = data.patientId.toString(),
-                    patientName = data.patientName,
-                    doctorName = data.doctorName,
-                    patientDateBirth = "05-07-1994",
-                    address = "Dummy Address",
+                DrugOrderDetailCard(
+                    orderNumber = data.orderNumber.toString(),
+                    supplierCode = data.supplierId.toString(),
+                    supplierName = data.supplierName.toString(),
+                    date = data.date.toString(),
+                    officer = data.officer,
+                    total = data.amountOrderItems.toString(),
+                    price = data.total.toString(),
                     closeDetailCard = {
                         showDetail = false
                     },
@@ -157,9 +160,9 @@ fun ManageMedicalPrescriptionScreen(
 }
 
 @Composable
-fun MedicalPrescriptionCard(
-    patientId: String,
-    patientName: String,
+fun DrugOrderCard(
+    supplierCode: String,
+    supplierName: String,
     openDetailCard: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -184,7 +187,7 @@ fun MedicalPrescriptionCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(text = patientName, fontSize = 18.sp)
+                Text(text = supplierName, fontSize = 18.sp)
                 IconButton(
                     onClick = { isExpanded = !isExpanded },
                     modifier = Modifier.padding(0.dp)
@@ -216,8 +219,8 @@ fun MedicalPrescriptionCard(
                         verticalAlignment = Alignment.Top
                     ) {
                         Column() {
-                            Text(text = "Nomor Rekam Medis", color = Pink, fontSize = 15.sp)
-                            Text(text = patientId, fontSize = 18.sp)
+                            Text(text = "Kode Supplier", color = Pink, fontSize = 15.sp)
+                            Text(text = supplierCode, fontSize = 18.sp)
                         }
                         TextButton(onClick = openDetailCard) {
                             Text(text = "Lihat Detail")
@@ -225,8 +228,8 @@ fun MedicalPrescriptionCard(
                     }
                     Spacer(modifier = Modifier.height(30.dp))
                     Column() {
-                        Text(text = "Nama Pasien", color = Pink, fontSize = 15.sp)
-                        Text(text = patientName, fontSize = 18.sp)
+                        Text(text = "Nama Supplier", color = Pink, fontSize = 15.sp)
+                        Text(text = supplierName, fontSize = 18.sp)
                     }
                 }
             }
@@ -235,12 +238,14 @@ fun MedicalPrescriptionCard(
 }
 
 @Composable
-fun MedicalPrescriptionDetailCard(
-    patientNumber: String,
-    patientName: String,
-    doctorName: String,
-    patientDateBirth: String,
-    address: String,
+fun DrugOrderDetailCard(
+    orderNumber: String,
+    supplierCode: String,
+    supplierName: String,
+    date: String,
+    officer: String,
+    total: String,
+    price: String,
     closeDetailCard: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
@@ -271,7 +276,7 @@ fun MedicalPrescriptionDetailCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Detail Resep Obat")
+                    Text("Detail Transaksi")
                     IconButton(onClick = closeDetailCard) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close),
@@ -282,11 +287,13 @@ fun MedicalPrescriptionDetailCard(
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
-                DetailInfoSection(title = "Nomor Rekam Medis", value = patientNumber)
-                DetailInfoSection(title = "Nama Pasien", value = patientName)
-                DetailInfoSection(title = "Nama Dokter", value = doctorName)
-                DetailInfoSection(title = "Tanggal Lahir", value = patientDateBirth)
-                DetailInfoSection(title = "Alamat", value = address)
+                DetailInfoSection(title = "Nomor Transaksi", value = orderNumber)
+                DetailInfoSection(title = "Kode Supplier", value = supplierCode)
+                DetailInfoSection(title = "Nama Supplier", value = supplierName)
+                DetailInfoSection(title = "Date", value = date)
+                DetailInfoSection(title = "Petugas", value = officer)
+                DetailInfoSection(title = "Total", value = total)
+                DetailInfoSection(title = "Harga", value = price)
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

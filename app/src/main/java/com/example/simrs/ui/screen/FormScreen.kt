@@ -22,6 +22,7 @@ import com.example.simrs.ui.screen.Feature
 import com.example.simrs.ui.screen.distribution.DistributionForm
 import com.example.simrs.ui.screen.medicalprescription.MedicalPrescriptionForm
 import com.example.simrs.ui.screen.medicine.MedicineForm
+import com.example.simrs.ui.screen.order.DrugOrderForm
 import com.example.simrs.ui.screen.sales.DrugSalesForm
 import com.example.simrs.ui.screen.supplier.SupplierForm
 import com.example.simrs.ui.theme.BlueGradient
@@ -127,6 +128,7 @@ fun FormScreen(
                                 MedicalPrescriptionForm()
                             }
                             Feature.PEMESANAN_OBAT -> {
+                                DrugOrderForm()
                             }
                             Feature.PENJUALAN_OBAT -> {
                                 DrugSalesForm()

@@ -152,7 +152,15 @@ object DummyData {
 
     fun getDummyMedicineOrder(): List<MedicineOrder> = listOf(
         MedicineOrder(
-            1, 1111, "6 - 1 - 2022", "Ahmad", listOf(
+            1201, 1111, "Supplier 1","6 - 1 - 2022", "Ahmad", listOf(
+                OrderItem(101, 1),
+                OrderItem(202, 2),
+                OrderItem(303, 3),
+            ),
+            6, 0f, 140000f
+        ),
+        MedicineOrder(
+            1202, 3333, "Supplier 3","6 - 1 - 2022", "Ahmad", listOf(
                 OrderItem(101, 1),
                 OrderItem(202, 2),
                 OrderItem(303, 3),

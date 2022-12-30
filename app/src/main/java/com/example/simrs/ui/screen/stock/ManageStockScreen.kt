@@ -88,7 +88,7 @@ fun ManageStockScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Data Obat", fontSize = 18.sp)
+                Text(text = "Stok Obat", fontSize = 18.sp)
                 Button(
                     onClick = navigateToFormScreen,
                     colors = ButtonDefaults.buttonColors(

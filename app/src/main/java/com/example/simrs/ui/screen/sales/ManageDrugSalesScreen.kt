@@ -91,7 +91,7 @@ fun ManageDrugSalesScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Distribusi Obat", fontSize = 18.sp)
+                Text(text = "Penjualan Obat", fontSize = 18.sp)
                 Button(
                     onClick = navigateToFormScreen,
                     colors = ButtonDefaults.buttonColors(
